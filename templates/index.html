@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinique Sidate Med</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, #0074c7, #d81b60);
+      color: #fff;
+      padding: 25px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 2rem;
+    }
+    nav {
+      background-color: #005a99;
+      text-align: center;
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      color: #005a99;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .hero {
+      text-align: center;
+    }
+    .hero img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      display: block;
+      margin: 0 auto 15px auto;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 700px;
+      margin: auto;
+    }
+    .services .service-item {
+      background: #fff;
+      padding: 20px;
+      margin: 15px 0;
+      border-left: 6px solid #d81b60;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .publications .pub-item {
+      background: #fff;
+      padding: 15px 20px;
+      margin: 12px 0;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    .pub-content {
+      display: none;
+      margin-top: 8px;
+      color: #555;
+      font-size: 0.95rem;
+    }
+    form {
+      max-width: 600px;
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input, select, textarea {
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 100%;
+    }
+    button {
+      padding: 12px;
+      background: #d81b60;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #d81b60;
+    }
+    footer {
+      background: #005a99;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    footer p {
+      margin: 5px 0;
+    }
+
+    /* Carousel */
+    .carousel {
+      position: relative;
+      max-width: 900px;
+      margin: 40px auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-images img {
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 5px 12px;
+      border-radius: 50%;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+    /* Services hidden content */
+    .service-content {
+    display: none;
+    margin-top: 8px;
+    color: #555;
+    font-size: 0.95rem;
+    }
+    .service-item {
+    cursor: pointer;
+    }
+/* Publications container */
+.publications {
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 800px; /* keeps it centered and aligned */
+  background: #f9f9f9;
+  border-radius: 12px;
+}
+
+/* Post list */
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Each post */
+.post-item {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Clickable title */
+.post-title {
+  margin: 0;
+  cursor: pointer;
+  color: #660000;
+  font-size: 1.2rem;
+}
+
+/* Hidden content */
+.post-content {
+  display: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+/* Delete button */
+.delete-btn {
+  margin-top: 10px;
+  background: #d81b60;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Clinique Sidate</h1>
+  </header>
+
+  <nav>
+    <a href="#bienvenue">Accueil</a>
+    <a href="#Localisation">Localisation</a>
+    <a href="#services">Services</a>
+    <a href="#publications">Actualités</a>
+    <a href="#rendezvous">Rendez-vous</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Bienvenue -->
+  <section id="bienvenue" class="hero">
+    <h2>Bienvenue à la Clinique Sidate</h2>
+    <p>Votre santé, notre priorité.</p><br>
+    <img src="https://allarassemjonathan.github.io/devanture_sidate.jpeg" alt="Clinique Sidate Med" >
+  </section>
+
+  <!-- Localisation -->
+<section id="Localisation" style="text-align: center;">
+  <h2>Localisation</h2>
+  <p style="margin:0 0 8px 0">Nous sommes en face de la mairie de Diamniadio!</p>
+
+  <div class="map-wrap" style="display: inline-block;">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1180.8581759910523!2d-17.184896719374585!3d14.720270909297122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1757553317164!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+   
+  <!-- Services -->
+<section id="services" class="services">
+  <h2>Nos Services</h2>
+
+  <div class="service-item" onclick="toggleService(this)">
+    <h3>Gynécologie</h3>
+    <div class="service-content">
+      Consultations pour la santé des femmes, suivi de grossesse et dépistages.
+    </div>
+  </div>
+
+  <div class="service-item" onclick="toggleService(this)">
+    <h3>Accouchement</h3>
+    <div class="service-content">
+      Salle d’accouchement équipée pour un suivi sécurisé de la mère et du bébé.
+    </div>
+  </div>
+
+  <div class="service-item" onclick="toggleService(this)">
+    <h3>Pédiatrie</h3>
+    <div class="service-content">
+      Suivi médical complet des enfants, vaccinations et traitements spécialisés.
+    </div>
+  </div>
+
+  <div class="service-item" onclick="toggleService(this)">
+    <h3>Oncologie</h3>
+    <div class="service-content">
+      Dépistage et suivi thérapeutique des cancers, accompagnement des patients.
+    </div>
+  </div>
+
+  <div class="service-item" onclick="toggleService(this)">
+    <h3>Cardiologie</h3>
+    <div class="service-content">
+      Examens du cœur, électrocardiogrammes, suivi des maladies cardiovasculaires.
+    </div>
+  </div>
+
+  <div class="service-item" onclick="toggleService(this)">
+    <h3>Analyses Médicales</h3>
+    <div class="service-content">
+      Laboratoire pour bilans sanguins, tests et diagnostics rapides.
+    </div>
+  </div>
+
+  <div class="service-item" onclick="toggleService(this)">
+    <h3>Bloc Opératoire</h3>
+    <div class="service-content">
+      Bloc moderne pour interventions chirurgicales avec une équipe qualifiée.
+    </div>
+  </div>
+
+  <div class="service-item" onclick="toggleService(this)">
+    <h3>Kinéthérapie</h3>
+    <div class="service-content">
+      Rééducation physique, traitement des douleurs musculaires et articulaires.
+    </div>
+  </div>
+</section>
+
+  <!-- Rendez-vous -->
+  <section id="rendezvous">
+    <h2>Prendre Rendez-vous</h2>
+    <form action="https://formspree.io/f/xzzakbqg" method="POST">
+      <label for="name">Nom complet</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Adresse email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Téléphone</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="date">Date souhaitée</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="service">Service demandé</label>
+      <select id="service" name="service" required>
+        <option value="">-- Choisir un service --</option>
+        <option value="gynecologie">Gynécologie</option>
+        <option value="accouchement">Accouchement</option>
+        <option value="pediatrie">Pédiatrie</option>
+        <option value="oncologie">Oncologie</option>
+        <option value="cardiologie">Cardiologie</option>
+        <option value="analyses">Analyses Médicales</option>
+        <option value="bloc">Bloc Opératoire</option>
+        <option value="kinesitherapie">Kinésithérapie</option>
+      </select>
+
+      <label for="message">Informations supplémentaires</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+
+      <button type="submit">Envoyer la demande</button>
+    </form>
+  </section>
+
+  <!-- Publications -->
+<section id="publications" class="publications">
+  <h2>Publications & Actualités</h2>
+
+  {% if posts_sidate %}
+    <div class="posts-container">
+      {% for post in posts_sidate %}
+        <div class="post-item">
+          <!-- Title without inline JS -->
+          <h3 class="post-title" data-id="{{ post.id }}">
+            {{ post.title }}
+          </h3>
+
+          <!-- Hidden content -->
+          <div id="content-{{ post.id }}" class="post-content">
+            <p>{{ post.content }}</p>
+
+            <!-- Delete button -->
+            <form method="POST" action="/delete_post/{{ post.id }}" class="delete-form">
+              <button 
+                type="submit" 
+                class="delete-btn" 
+                title="Supprimer"
+                style="background:none; border:none; color:#d81b60; cursor:pointer; font-size:0.85rem; padding:4px 8px; border-radius:4px;"
+                onmouseover="this.style.color='#aa0000'; this.style.background='none';"
+                onmouseout="this.style.color='#aa0000'; this.style.background='none';"> Supprimer</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="text-align: center;">Aucune publication pour le moment.</p>
+  {% endif %}
+</section>
+
+  <section id="publier">
+    <form id="postForm" method="POST" action="/create_post">
+    <h2 styles=" color: #005a99; margin-bottom: 20px; text-align: center;">Créer une publication</h2>
+    <input type="text" name="title" placeholder="Titre" required><br><br>
+    <textarea name="content" placeholder="Contenu" required></textarea><br><br>
+    <button type="submit">Publier</button>
+  </form>
+  </section>
+  <!-- Carousel (Galerie d’images) -->
+  <section id="galerie">
+    <h2>Des images du cabinet</h2>
+    <div class="carousel">
+      <div class="carousel-images" id="carouselImages">
+        <img src="https://allarassemjonathan.github.io/devanture_sidate.jpeg" alt="Photo 1" height="900" >
+        <img src="https://allarassemjonathan.github.io/panneau_sidate.jpeg" alt="Photo 2" height="900" >
+        <img src="https://allarassemjonathan.github.io/reception_sidate.jpeg" alt="Photo 3" height="900">
+        <img src="https://allarassemjonathan.github.io/reception_vue_sidate.jpeg" alt="Photo 4" height="900">
+      </div>
+      <button class="carousel-btn prev" onclick="prevSlide()">&#10094;</button>
+      <button class="carousel-btn next" onclick="nextSlide()">&#10095;</button>
+    </div>
+  </section>
+
+    <!-- Contact -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p style="text-align:center;">📞 Téléphone : 77 871 83 05</p>
+    <p style="text-align:center;">📍 Adresse : En face mairie Diamniadio</p>
+    <p style="text-align:center;">⏰ Ouvert 24h/24 - 7j/7</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Clinique Sidate Med - Diamniadio</p>
+    <p>Tous droits réservés</p>
+  </footer>
+
+  <script>
+    document.getElementById("postForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // stop normal submit
+
+      // Ask for password only AFTER title & content are filled
+      let password = prompt("Veuillez entrer le mot de passe admin :");
+
+      if (password !== null) {
+        // Create hidden input dynamically
+        let input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "password";
+        input.value = password;
+        this.appendChild(input);
+
+        this.submit(); // now submit with password included
+      }
+    });
+    // Reveal sections on scroll
+    const sections = document.querySelectorAll("section");
+    const revealOnScroll = () => {
+      const triggerBottom = window.innerHeight * 0.85;
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < triggerBottom) {
+          sec.classList.add("visible");
+        }
+      });
+    };
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    // Toggle Publications
+    function togglePub(el) {
+      const content = el.querySelector(".pub-content");
+      content.style.display = content.style.display === "block" ? "none" : "block";
+    }
+
+    // Carousel
+    let currentIndex = 0;
+    const images = document.querySelectorAll("#carouselImages img");
+    // Toggle Services
+    function toggleService(el) {
+    const content = el.querySelector(".service-content");
+    content.style.display = content.style.display === "block" ? "none" : "block";
+    }
+
+    function showSlide(index) {
+      if (index >= images.length) currentIndex = 0;
+      else if (index < 0) currentIndex = images.length - 1;
+      else currentIndex = index;
+
+      const offset = -currentIndex * 100;
+      document.getElementById("carouselImages").style.transform = `translateX(${offset}%)`;
+    }
+    function nextSlide() { showSlide(currentIndex + 1); }
+    function prevSlide() { showSlide(currentIndex - 1); }
+
+    setInterval(() => { nextSlide(); }, 4000);
+
+    function confirmDelete() {
+      let password = prompt("Mot de passe admin requis pour supprimer :");
+      if (password === null) return false; // cancel
+      let input = document.createElement("input");
+      input.type = "hidden";
+      input.name = "password";
+      input.value = password;
+      event.target.appendChild(input);
+      return true;
+    }
+    // Toggle content when clicking titles
+    document.querySelectorAll(".post-title").forEach(title => {
+      title.addEventListener("click", () => {
+        let id = title.getAttribute("data-id");
+        let content = document.getElementById("content-" + id);
+        content.style.display = (content.style.display === "block") ? "none" : "block";
+      });
+    });
+
+    // Confirm delete with password prompt
+    document.querySelectorAll(".delete-form").forEach(form => {
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        let password = prompt("Mot de passe admin requis pour supprimer :");
+        if (password !== null) {
+          let input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "password";
+          input.value = password;
+          this.appendChild(input);
+          this.submit();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
