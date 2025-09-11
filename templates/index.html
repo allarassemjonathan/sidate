@@ -21,7 +21,7 @@
     header h1 {
       margin: 0;
       font-weight: 600;
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
     nav {
       background-color: #005a99;
@@ -33,15 +33,16 @@
     }
     nav a {
       color: #fff;
-      margin: 0 15px;
+      margin: 0 10px;
       text-decoration: none;
       font-weight: 500;
+      font-size: 0.95rem;
     }
     nav a:hover {
       text-decoration: underline;
     }
     section {
-      padding: 60px 20px;
+      padding: 50px 15px;
       max-width: 1000px;
       margin: auto;
       opacity: 0;
@@ -56,10 +57,10 @@
       color: #005a99;
       margin-bottom: 20px;
       text-align: center;
+      font-size: 1.6rem;
     }
-    .hero {
-      text-align: center;
-    }
+
+    /* Hero image responsive */
     .hero img {
       width: 100%;
       max-width: 400px;
@@ -68,34 +69,97 @@
       display: block;
       margin: 0 auto 15px auto;
     }
+
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #555;
       max-width: 700px;
       margin: auto;
+      text-align: center;
     }
+
+    /* Map responsive */
+    .map-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      margin: 15px auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .map-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Services */
     .services .service-item {
       background: #fff;
       padding: 20px;
-      margin: 15px 0;
-      border-left: 6px solid #d81b60;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .publications .pub-item {
-      background: #fff;
-      padding: 15px 20px;
       margin: 12px 0;
+      border-left: 6px solid #d81b60;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       cursor: pointer;
     }
-    .pub-content {
+    .service-content {
       display: none;
       margin-top: 8px;
       color: #555;
       font-size: 0.95rem;
     }
+
+    /* Publications */
+    .publications {
+      margin: 30px auto;
+      padding: 15px;
+      max-width: 800px;
+      background: #f9f9f9;
+      border-radius: 12px;
+    }
+    .posts-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .post-item {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.05);
+    }
+    .post-title {
+      margin: 0;
+      cursor: pointer;
+      color: #660000;
+      font-size: 1.1rem;
+    }
+    .post-content {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+
+    .delete-btn {
+      margin-top: 10px;
+      background: #d81b60;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    /* Forms */
     form {
       max-width: 600px;
       margin: 20px auto;
@@ -121,35 +185,27 @@
       transition: background 0.3s;
     }
     button:hover {
-      background: #d81b60;
-    }
-    footer {
-      background: #005a99;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-    footer p {
-      margin: 5px 0;
+      background: #aa0044;
     }
 
-    /* Carousel */
+    /* Carousel responsive */
     .carousel {
       position: relative;
-      max-width: 900px;
-      margin: 40px auto;
       overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 600px;
+      margin: 30px auto;
+      margin: 0 auto;
     }
     .carousel-images {
       display: flex;
       transition: transform 0.5s ease-in-out;
     }
     .carousel-images img {
-      width: 100%;
-      flex-shrink: 0;
+        width: 100%;       /* fill carousel width */
+        height: 700px;     /* fixed height */
+        object-fit: cover; /* zoom/crop to fit height nicely */
+        display: block;
     }
     .carousel-btn {
       position: absolute;
@@ -165,68 +221,32 @@
     }
     .prev { left: 10px; }
     .next { right: 10px; }
-    /* Services hidden content */
-    .service-content {
-    display: none;
-    margin-top: 8px;
-    color: #555;
-    font-size: 0.95rem;
+
+    /* Footer */
+    footer {
+      background: #005a99;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.9rem;
     }
-    .service-item {
-    cursor: pointer;
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.5rem; }
+      nav a { margin: 0 8px; font-size: 0.85rem; }
+      section { padding: 40px 12px; }
+      .hero p { font-size: 0.95rem; }
+      .post-title { font-size: 1rem; }
     }
-/* Publications container */
-.publications {
-  margin: 40px auto;
-  padding: 20px;
-  max-width: 800px; /* keeps it centered and aligned */
-  background: #f9f9f9;
-  border-radius: 12px;
-}
 
-/* Post list */
-.posts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Each post */
-.post-item {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 12px 16px;
-  box-shadow: 0px 2px 5px rgba(0,0,0,0.05);
-}
-
-/* Clickable title */
-.post-title {
-  margin: 0;
-  cursor: pointer;
-  color: #660000;
-  font-size: 1.2rem;
-}
-
-/* Hidden content */
-.post-content {
-  display: none;
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #eee;
-}
-
-/* Delete button */
-.delete-btn {
-  margin-top: 10px;
-  background: #d81b60;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.3rem; }
+      nav a { display: inline-block; margin: 5px 8px; font-size: 0.8rem; }
+      section h2 { font-size: 1.4rem; }
+      button { font-size: 0.9rem; padding: 10px; }
+    }
   </style>
 </head>
 <body>
