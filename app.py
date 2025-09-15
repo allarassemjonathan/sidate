@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 import psycopg2
+import os
 
 app = Flask(__name__)
 
@@ -7,7 +8,7 @@ app = Flask(__name__)
 DATABASE_URL = "postgresql://postgres:xgZMYbLgKSFiWbyqRZLukdHEDmCtInnB@trolley.proxy.rlwy.net:29389/railway"
 
 # Simple password for posting/deleting
-ADMIN_PASSWORD = "xqemztyrnlkfup"  # 🔹 Change this
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')  # 🔹 Change this
 
 def get_connection():
     return psycopg2.connect(DATABASE_URL)
