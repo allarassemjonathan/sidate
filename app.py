@@ -7,7 +7,7 @@ app = Flask(__name__)
 DATABASE_URL = "postgresql://postgres:xgZMYbLgKSFiWbyqRZLukdHEDmCtInnB@trolley.proxy.rlwy.net:29389/railway"
 
 # Simple password for posting/deleting
-ADMIN_PASSWORD = "vetsecret"  # 🔹 Change this
+ADMIN_PASSWORD = "xqemztyrnlkfup"  # 🔹 Change this
 
 def get_connection():
     return psycopg2.connect(DATABASE_URL)
