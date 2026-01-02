@@ -231,6 +231,166 @@
       margin-top: 40px;
       font-size: 0.9rem;
     }
+    /* Services cards */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.service-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.service-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.service-body {
+  padding: 18px;
+}
+
+.service-body h3 {
+  margin: 0 0 8px 0;
+  color: #005a99;
+  font-size: 1.1rem;
+}
+
+/* Hide service descriptions by default */
+.service-body p {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+/* Show when active */
+.service-card.active .service-body p {
+  max-height: 120px;
+  opacity: 1;
+}
+
+/* Hero banner */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 450px;
+  background-image: url("https://allarassemjonathan.github.io/devanture_sidate.jpeg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;   /* move content to bottom */
+  justify-content: center;
+  padding-bottom: 60px;    /* distance from bottom */
+}
+
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0)
+  );
+  z-index: 1;
+}
+
+
+/* Hero text without bubble */
+.hero-text {
+  color: white;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 20px;
+  z-index: 2;
+}
+
+.hero-text h1 {
+  font-size: 2.6rem;
+  font-weight: 400;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 65vh;
+  }
+
+  .hero-overlay h1 {
+    font-size: 2rem;
+  }
+
+  .hero-overlay p {
+    font-size: 1rem;
+  }
+}
+
+/* Contact section */
+.contact-section {
+  background: #f5f8fc;
+  border-radius: 12px;
+  padding: 60px 20px;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.contact-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.contact-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.contact-card h4 {
+  margin: 10px 0 6px;
+  color: #005a99;
+  font-weight: 500;
+}
+
+.contact-card p {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
 
     /* Responsive tweaks */
     @media (max-width: 768px) {
@@ -264,14 +424,72 @@
     <a href="#contact">Contact</a>
   </nav>
 
-  <!-- Bienvenue -->
-  <section id="bienvenue" class="hero">
-    <h2>Bienvenue à la Clinique Sidate</h2>
-    <p>Votre santé, notre priorité.</p><br>
-    <img src="https://allarassemjonathan.github.io/devanture_sidate.jpeg" alt="Clinique Sidate Med" >
-  </section>
+<!-- Bienvenue / Hero -->
+<section id="bienvenue" class="hero-banner">
+  <div class="hero-text">
+    <h1>Dédié à votre bien-être<br>et celui de votre famille</h1>
+    <p>Des soins médicaux de qualité, accessibles 24h/24 à Diamniadio.</p>
+  </div>
+</section>
 
-  <!-- Localisation -->
+<!-- Services (Cards style) -->
+<section id="services" class="services">
+  <h2>Nos Services</h2>
+
+  <div class="services-grid">
+
+    <div class="service-card" onclick="toggleServiceCard(this)">
+      <img src="https://allarassemjonathan.github.io/gineco.jfif" alt="Gynécologie">
+      <div class="service-body">
+        <h3>Gynécologie</h3>
+        <p>Santé de la femme, suivi de grossesse et dépistages.</p>
+      </div>
+    </div>
+
+    <div class="service-card" onclick="toggleServiceCard(this)">
+      <img src="https://allarassemjonathan.github.io/birth.jfif" alt="Accouchement">
+      <div class="service-body">
+        <h3>Accouchement</h3>
+        <p>Salle d’accouchement sécurisée pour la mère et le bébé.</p>
+      </div>
+    </div>
+
+    <div class="service-card" onclick="toggleServiceCard(this)">
+      <img src="https://allarassemjonathan.github.io/pediatry.jfif" alt="Pédiatrie">
+      <div class="service-body">
+        <h3>Pédiatrie</h3>
+        <p>Suivi médical des enfants et vaccinations.</p>
+      </div>
+    </div>
+
+    <div class="service-card" onclick="toggleServiceCard(this)">
+      <img src="https://allarassemjonathan.github.io/cardio.jfif" alt="Cardiologie">
+      <div class="service-body">
+        <h3>Cardiologie</h3>
+        <p>Examens cardiaques et suivi cardiovasculaire.</p>
+      </div>
+    </div>
+
+    <div class="service-card" onclick="toggleServiceCard(this)">
+      <img src="https://allarassemjonathan.github.io/bloc-op.jfif" alt="Bloc opératoire">
+      <div class="service-body">
+        <h3>Bloc Opératoire</h3>
+        <p>Interventions chirurgicales dans un bloc moderne.</p>
+      </div>
+    </div>
+
+    <div class="service-card" onclick="toggleServiceCard(this)">
+      <img src="https://allarassemjonathan.github.io/kine.jfif" alt="Kinésithérapie">
+      <div class="service-body">
+        <h3>Kinésithérapie</h3>
+        <p>Rééducation physique et traitement des douleurs.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Localisation -->
 <section id="Localisation" style="text-align: center;">
   <h2>Localisation</h2>
   <p style="margin:0 0 8px 0">Nous sommes en face de la mairie de Diamniadio!</p>
@@ -279,68 +497,6 @@
   <div class="map-wrap" style="display: inline-block;">
     <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1180.8581759910523!2d-17.184896719374585!3d14.720270909297122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1757553317164!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
     </iframe>
-  </div>
-</section>
-
-   
-  <!-- Services -->
-<section id="services" class="services">
-  <h2>Nos Services</h2>
-
-  <div class="service-item" onclick="toggleService(this)">
-    <h3>Gynécologie</h3>
-    <div class="service-content">
-      Consultations pour la santé des femmes, suivi de grossesse et dépistages.
-    </div>
-  </div>
-
-  <div class="service-item" onclick="toggleService(this)">
-    <h3>Accouchement</h3>
-    <div class="service-content">
-      Salle d’accouchement équipée pour un suivi sécurisé de la mère et du bébé.
-    </div>
-  </div>
-
-  <div class="service-item" onclick="toggleService(this)">
-    <h3>Pédiatrie</h3>
-    <div class="service-content">
-      Suivi médical complet des enfants, vaccinations et traitements spécialisés.
-    </div>
-  </div>
-
-  <div class="service-item" onclick="toggleService(this)">
-    <h3>Oncologie</h3>
-    <div class="service-content">
-      Dépistage et suivi thérapeutique des cancers, accompagnement des patients.
-    </div>
-  </div>
-
-  <div class="service-item" onclick="toggleService(this)">
-    <h3>Cardiologie</h3>
-    <div class="service-content">
-      Examens du cœur, électrocardiogrammes, suivi des maladies cardiovasculaires.
-    </div>
-  </div>
-
-  <div class="service-item" onclick="toggleService(this)">
-    <h3>Analyses Médicales</h3>
-    <div class="service-content">
-      Laboratoire pour bilans sanguins, tests et diagnostics rapides.
-    </div>
-  </div>
-
-  <div class="service-item" onclick="toggleService(this)">
-    <h3>Bloc Opératoire</h3>
-    <div class="service-content">
-      Bloc moderne pour interventions chirurgicales avec une équipe qualifiée.
-    </div>
-  </div>
-
-  <div class="service-item" onclick="toggleService(this)">
-    <h3>Kinésithérapie</h3>
-    <div class="service-content">
-      Rééducation physique, traitement des douleurs musculaires et articulaires.
-    </div>
   </div>
 </section>
 
@@ -439,13 +595,32 @@
     </div>
   </section>
 
-    <!-- Contact -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p style="text-align:center;">📞 Téléphone : 77 871 83 05</p>
-    <p style="text-align:center;">📍 Adresse : En face mairie Diamniadio</p>
-    <p style="text-align:center;">⏰ Ouvert 24h/24 - 7j/7</p>
-  </section>
+<!-- Contact -->
+<section id="contact" class="contact-section">
+  <h2>Nous contacter</h2>
+
+  <div class="contact-cards">
+
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <h4>Téléphone</h4>
+      <p>77 871 83 05</p>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <h4>Adresse</h4>
+      <p>En face de la mairie de Diamniadio</p>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-icon">⏰</div>
+      <h4>Horaires</h4>
+      <p>Ouvert 24h/24 — 7j/7</p>
+    </div>
+
+  </div>
+</section>
 
   <footer>
     <p>&copy; 2025 Clinique Sidate Med - Diamniadio</p>
@@ -546,6 +721,9 @@
         }
       });
     });
+      function toggleServiceCard(card) {
+    card.classList.toggle("active");
+  }
   </script>
 </body>
 </html>
